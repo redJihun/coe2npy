@@ -82,12 +82,12 @@ if __name__ == '__main__':
     # sys.exit(app.exec_())
     # print(ex.sram4_le)
 
-    # sram4_path = input('sram4 이름(ex. sram4.coe) : ')
-    # sram5_path = input('sram5 이름(ex. sram5.coe) : ')
-    # sram6_path = input('sram6 이름(ex. sram6.coe) : ')
-    sram4_path = 'test4_sram_bias0/sram4_test4.coe'
-    sram5_path = 'test4_sram_bias0/sram5_test4.coe'
-    sram6_path = 'test4_sram_bias0/sram6_test4.coe'
+    sram4_path = input('sram4 이름(ex. sram4.coe) : ')
+    sram5_path = input('sram5 이름(ex. sram5.coe) : ')
+    sram6_path = input('sram6 이름(ex. sram6.coe) : ')
+    # sram4_path = 'test4_sram_bias0/sram4_test4.coe'
+    # sram5_path = 'test4_sram_bias0/sram5_test4.coe'
+    # sram6_path = 'test4_sram_bias0/sram6_test4_bias0.coe'
 
     try:
         sram4 = open(sram4_path, 'r')
@@ -102,9 +102,9 @@ if __name__ == '__main__':
         rnet_fc2_sh, rnet_fc3_sh, rnet_bias5_sh, rnet_bias6_sh = \
             4, 4, 2, 5, 4, 3, 5, 4, 4, 6, 4, 3, 3, 4, 6, 6
 
-        sram4_list = np.array(sram4.read().splitlines())
-        sram5_list = np.array(sram5.read().splitlines())
-        sram6_list = np.array(sram6.read().splitlines())
+        sram4_list = np.array(sram4.read().strip().splitlines())
+        sram5_list = np.array(sram5.read().strip().splitlines())
+        sram6_list = np.array(sram6.read().strip().splitlines())
 
         change_sram4_list = hex2int(sram4_list[-2967:])
         change_sram5_list = hex2int(sram5_list[-4608:])
