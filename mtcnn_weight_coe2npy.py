@@ -19,61 +19,13 @@ def hex2int(sram_list):
     return change_sram_list
 
 
-def int2float(sram_list, shift_bits):
+def int2float(sram_list, divide_value):
     change_sram_list = []
     for idx in range(len(sram_list)):
-        foo = [(x / 16) / (2 ** shift_bits) for x in sram_list[idx]]
+        # foo = [(x / 16) / (2 ** shift_bits) for x in sram_list[idx]]
+        foo = [x / divide_value for x in sram_list[idx]]
         change_sram_list.append(foo)
     return change_sram_list
-
-
-# class WindowApp(QWidget):
-#     def __init__(self):
-#         super().__init__()
-#         self.initUI()
-#
-#     def initUI(self):
-#         self.setWindowTitle('Converter - coe2npy')
-#
-#         self.sram4_group = QGroupBox('sram4')
-#         self.sram4_label = QLabel('sram4 파일 이름')
-#         self.sram4_le = QLineEdit()
-#         self.sram4_le.setPlaceholderText('ex) sram4.coe')
-#         self.sram4_layout = QGridLayout()
-#         self.sram4_layout.addWidget(self.sram4_label, 0, 0)
-#         self.sram4_layout.addWidget(self.sram4_le, 0, 1, 0, 3)
-#         self.sram4_group.setLayout(self.sram4_layout)
-#
-#         self.sram5_group = QGroupBox('sram5')
-#         self.sram5_label = QLabel('sram5 파일 이름')
-#         self.sram5_le = QLineEdit()
-#         self.sram5_le.setPlaceholderText('ex) sram5.coe')
-#         self.sram5_layout = QGridLayout()
-#         self.sram5_layout.addWidget(self.sram5_label, 0, 0)
-#         self.sram5_layout.addWidget(self.sram5_le, 0, 1, 0, 3)
-#         self.sram5_group.setLayout(self.sram5_layout)
-#
-#         self.sram6_group = QGroupBox('sram6')
-#         self.sram6_label = QLabel('sram6 파일 이름')
-#         self.sram6_le = QLineEdit()
-#         self.sram6_le.setPlaceholderText('ex) sram6.coe')
-#         self.sram6_layout = QGridLayout()
-#         self.sram6_layout.addWidget(self.sram6_label, 0, 0)
-#         self.sram6_layout.addWidget(self.sram6_le, 0, 1, 0, 3)
-#         self.sram6_group.setLayout(self.sram6_layout)
-#
-#         self.layout = QGridLayout()
-#         self.layout.addWidget(self.sram4_group, 0, 0)
-#         self.layout.addWidget(self.sram5_group, 1, 0)
-#         self.layout.addWidget(self.sram6_group, 2, 0)
-#         self.setLayout(self.layout)
-#
-#         # self.move(300, 300)
-#         # self.resize(400, 200)
-#         self.show()
-#
-#     def setText:
-#         sram4_name, sram5_name, sram6_name = '', '', ''
 
 
 if __name__ == '__main__':
@@ -82,12 +34,12 @@ if __name__ == '__main__':
     # sys.exit(app.exec_())
     # print(ex.sram4_le)
 
-    sram4_path = input('sram4 이름(ex. sram4.coe) : ')
-    sram5_path = input('sram5 이름(ex. sram5.coe) : ')
-    sram6_path = input('sram6 이름(ex. sram6.coe) : ')
-    # sram4_path = 'test4_sram_bias0/sram4_test4.coe'
-    # sram5_path = 'test4_sram_bias0/sram5_test4.coe'
-    # sram6_path = 'test4_sram_bias0/sram6_test4_bias0.coe'
+    # sram4_path = input('sram4 이름(ex. sram4.coe) : ')
+    # sram5_path = input('sram5 이름(ex. sram5.coe) : ')
+    # sram6_path = input('sram6 이름(ex. sram6.coe) : ')
+    sram4_path = 'test4_sram_bias0/sram4_test4.coe'
+    sram5_path = 'test4_sram_bias0/sram5_test4.coe'
+    sram6_path = 'test4_sram_bias0/sram6_test4_bias0_act0.coe'
 
     try:
         sram4 = open(sram4_path, 'r')
@@ -96,19 +48,20 @@ if __name__ == '__main__':
 
         pnet_conv1_sh, pnet_bias1_sh, pnet_act1_sh, pnet_conv2_sh, pnet_bias2_sh, pnet_act2_sh, \
         pnet_conv3_sh, pnet_bias3_sh, pnet_act3_sh, pnet_conv4_sh, pnet_conv5_sh, pnet_bias4_sh, pnet_bias5_sh = \
-            2, 3, 3, 3, 1, 4, 4, 2, 4, 4, 6, 7, 7
+            1, 1, 1, 1, 0.5, 4, 2, 1, 4, 2, 8, 128, 32  # 2, 3, 3, 3, 1, 4, 4, 2, 4, 4, 6, 7, 7
+
         rnet_conv1_sh, rnet_bias1_sh, rnet_act1_sh, rnet_conv2_sh, rnet_bias2_sh, rnet_act2_sh, \
         rnet_conv3_sh, rnet_bias3_sh, rnet_act3_sh, rnet_fc1_sh, rnet_bias4_sh, rnet_act4_sh, \
         rnet_fc2_sh, rnet_fc3_sh, rnet_bias5_sh, rnet_bias6_sh = \
-            4, 4, 2, 5, 4, 3, 5, 4, 4, 6, 4, 3, 3, 4, 6, 6
+            2, 4, 1, 4, 4, 2, 4, 4, 2, 8, 4, 2, 2, 4, 16, 8  # 4, 4, 2, 5, 4, 3, 5, 4, 4, 6, 4, 3, 3, 4, 6, 6
 
         sram4_list = np.array(sram4.read().strip().splitlines())
         sram5_list = np.array(sram5.read().strip().splitlines())
         sram6_list = np.array(sram6.read().strip().splitlines())
 
-        change_sram4_list = hex2int(sram4_list[-2967:])
-        change_sram5_list = hex2int(sram5_list[-4608:])
-        change_sram6_list = hex2int(sram6_list[-43:])
+        change_sram4_list = np.array(hex2int(sram4_list[-2967:])) / 64
+        change_sram5_list = np.array(hex2int(sram5_list[-4608:])) / 64
+        change_sram6_list = np.array(hex2int(sram6_list[-43:])) / 64
 
         pnet_conv1 = int2float(change_sram4_list[:14], pnet_conv1_sh)
         pnet_conv1 = np.array(pnet_conv1).flatten()[:216]
@@ -167,6 +120,9 @@ if __name__ == '__main__':
         rnet_conv3 = np.append(rnet_conv3_1, rnet_conv3_2, axis=3)
         rnet_conv3 = np.append(rnet_conv3, rnet_conv3_3, axis=3)
         rnet_conv3 = np.append(rnet_conv3, rnet_conv3_4, axis=3)
+        rnet_conv3 = np.delete(rnet_conv3, (2), axis=0)
+        rnet_conv3 = np.delete(rnet_conv3, (2), axis=1)
+        print(rnet_conv3.shape)
 
         rnet_fc1 = int2float(change_sram5_list, rnet_fc1_sh)
         rnet_fc1 = np.array(rnet_fc1).flatten()
@@ -299,7 +255,7 @@ if __name__ == '__main__':
 
         now = time.localtime()
         save_file_name = "%02d_%02d_%02d%02d%02d" % (now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        np.save(save_file_name + '_weight', weight)
+        np.save('converted_npy/' + save_file_name + '_weight', weight)
         input('\nConvert success!\n\nPress any key...')
     except:
         input('\nConvert Fail...\n\nPress any key...')
